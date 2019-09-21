@@ -10,7 +10,7 @@ function getMovies() {
       .then(response => response.json());
 }
 
-function postMovie() {
+function addMovie() {
   let movieTitle = $('#new-movie-title').val();
   let movieRating = $('#new-movie-rating').val();
   let newMovie = {
@@ -27,7 +27,7 @@ function postMovie() {
     body: JSON.stringify(newMovie),
   };
   fetch(url, options)
-      .then(/* post was created successfully */)
+      .then(getMovies)
       .catch(/* handle errors */);
 }
 //IMPORTS getMovies() fetch request from api.js
@@ -70,5 +70,8 @@ function renderMovies(title,rating, id) {
 
 }
 
-$('#add-movie').on("click", postMovie);
+$('#add-movie').on("click", function() {
+  preventDefault();
+  addMovie();
+});
 
