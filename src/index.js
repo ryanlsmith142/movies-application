@@ -5,12 +5,32 @@
 /**
  * require style imports
  */
+function getMovies() {
+  return fetch('/api/movies')
+      .then(response => response.json());
+}
 
+function postMovie() {
+  let movieTitle = $('#new-movie-title').val();
+  let movieRating = $('#new-movie-rating').val();
+  let newMovie = {
+    title: movieTitle,
+    rating: movieRating,
+
+  };
+  const url = '/api/movies';
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newMovie),
+  };
+  fetch(url, options)
+      .then(/* post was created successfully */)
+      .catch(/* handle errors */);
+}
 //IMPORTS getMovies() fetch request from api.js
-
-const {getMovies} = require('./api.js');
-
-const {addMovie} = require('./api.js');
 
 
 getMovies().then((movies) => {
@@ -50,5 +70,5 @@ function renderMovies(title,rating, id) {
 
 }
 
-$('#add-movie').on("click", addMovie);
+$('#add-movie').on("click", postMovie);
 
