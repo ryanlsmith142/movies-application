@@ -6,11 +6,13 @@
  * require style imports
  */
 function getMovies() {
+    console.log("getmovies ran")
   return fetch('/api/movies')
       .then(response => response.json());
 }
 
 function addMovie() {
+    console.log("add Movies ran");
   let movieTitle = $('#new-movie-title').val();
   let movieRating = $('#new-movie-rating').val();
   let newMovie = {
@@ -27,8 +29,10 @@ function addMovie() {
     body: JSON.stringify(newMovie),
   };
   fetch(url, options)
-      .then(getMovies)
-      .catch(/* handle errors */);
+      .then()
+      .catch(function() {
+          console.log("Hey we couldn't add a movie or update the movies.")
+      });
 }
 //IMPORTS getMovies() fetch request from api.js
 
@@ -72,6 +76,7 @@ function renderMovies(title,rating, id) {
 
 $('#add-movie').on("click", function() {
   preventDefault();
+    console.log("click event occured")
   addMovie();
 });
 
