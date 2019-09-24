@@ -6,7 +6,7 @@
  * require style imports
  */
 function getMovies() {
-    console.log("getmovies ran")
+    console.log("getmovies ran");
   return fetch('/api/movies')
       .then(response => response.json());
 }
@@ -18,7 +18,6 @@ function addMovie() {
   let newMovie = {
     title: movieTitle,
     rating: movieRating,
-
   };
   const url = '/api/movies';
   const options = {
@@ -34,11 +33,9 @@ function addMovie() {
           console.log("Hey we couldn't add a movie or update the movies.")
       });
 }
-//IMPORTS getMovies() fetch request from api.js
 
 
 getMovies().then((movies) => {
-  console.log('Here are all the movies:');
   let dynamicHTML = "";
   movies.forEach(({title, rating, id}) => {
     // console.log(`id#${id} - ${title} - rating: ${rating}`);
@@ -74,9 +71,12 @@ function renderMovies(title,rating, id) {
 
 }
 
-$('#add-movie').on("click", function() {
-  preventDefault();
-    console.log("click event occured")
+//ADDS A MOVIE TO DATABASE ON CLICK
+
+$('#add-movie-btn').on("click", function(e) {
+  // e.preventDefault();
+  console.log("click event occured");
   addMovie();
 });
+
 
