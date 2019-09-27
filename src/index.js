@@ -7,13 +7,11 @@
 
 
 function getMovies() {
-    console.log("getmovies ran");
   return fetch('/api/movies')
       .then(response => response.json());
 }
 
 function addMovie() {
-    console.log("add Movies ran");
   let movieTitle = $('#new-movie-title').val();
   let movieRating = $('#new-movie-rating').val();
   let newMovie = {
@@ -29,10 +27,12 @@ function addMovie() {
     body: JSON.stringify(newMovie),
   };
   fetch(url, options)
-      .then(renderMovies())
+      .then()
       .catch(function() {
           console.log("Hey we couldn't add a movie or update the movies.")
       });
+
+  renderMovies();
 }
 
 
@@ -45,7 +45,7 @@ getMovies().then((movies) => {
 
   $(".container").html(dynamicHTML);
 }).catch((error) => {
-  alert('Oh no! Something went wrong.\nCheck the console for details.')
+  alert('Oh no! Something went wrong.\nCheck the console for details.');
   console.log(error);
 });
 
@@ -56,9 +56,7 @@ function renderMovies(title,rating, id) {
 
   //declare empty variable to hold HTML that is being dynamically created
 
-  let dynamicHTML = "";
-
-  dynamicHTML = `
+  let dynamicHTML = `
     <div class="card" style="width: 18rem; data-id=${id}">
       <div class="card-body">
       <h5 class="card-title">${title}</h5>
@@ -74,6 +72,8 @@ function renderMovies(title,rating, id) {
 
 //ADDS A MOVIE TO DATABASE ON CLICK
 
-$('#add-movie-btn').on("click", addMovie());
+$('#add-movie-btn').on("click", function() {
+  addMovie();
+});
 
-$('#edit-movie').on("click",)
+// $('#edit-movie').on("click",)
