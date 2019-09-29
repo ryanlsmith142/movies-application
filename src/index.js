@@ -56,18 +56,41 @@ function renderMovies(title,rating, id) {
 
   //declare empty variable to hold HTML that is being dynamically created
 
-  let dynamicHTML = `
+  return `
     <div class="card" style="width: 18rem; data-id=${id}">
       <div class="card-body">
       <h5 class="card-title">${title}</h5>
       <h6 class="card-subtitle mb-2 text-muted">${rating}</h6>
-      <button id="edit-movie" type="button" class="btn btn-secondary">Edit</button>
+      <button class="edit-movie" type="button" class="btn btn-secondary">Edit</button>
       </div>
     </div>
   `;
 
-  return dynamicHTML;
 
+
+}
+
+function renderModal() {
+  return '\n' +
+      '<div class="modal" tabindex="-1" role="dialog">\n' +
+      '  <div class="modal-dialog" role="document">\n' +
+      '    <div class="modal-content">\n' +
+      '      <div class="modal-header">\n' +
+      '        <h5 class="modal-title">Modal title</h5>\n' +
+      '        <button type="button" class="close" data-dismiss="modal" aria-label="Close">\n' +
+      '          <span aria-hidden="true">&times;</span>\n' +
+      '        </button>\n' +
+      '      </div>\n' +
+      '      <div class="modal-body">\n' +
+      '        <p>Modal body text goes here.</p>\n' +
+      '      </div>\n' +
+      '      <div class="modal-footer">\n' +
+      '        <button type="button" class="btn btn-primary">Save changes</button>\n' +
+      '        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>\n' +
+      '      </div>\n' +
+      '    </div>\n' +
+      '  </div>\n' +
+      '</div>'
 }
 
 //ADDS A MOVIE TO DATABASE ON CLICK
@@ -76,4 +99,16 @@ $('#add-movie-btn').on("click", function() {
   addMovie();
 });
 
-// $('#edit-movie').on("click",)
+$('.edit-movie').on("shown.bs.modal", function() {
+  console.log('edit button');
+  renderModal();
+
+});
+
+// $('.edit-movie').click(function() {
+//
+//   console.log('edit button 2 ran');
+//
+//   let modal = renderModal();
+//   $(document).html(modal);
+// });
