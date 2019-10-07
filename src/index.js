@@ -44,6 +44,9 @@ getMovies().then((movies) => {
   });
 
   $(".container").html(dynamicHTML);
+  $(".edit-movie").on('click', function(){
+    $('#myModal').modal('toggle');
+});
 }).catch((error) => {
   alert('Oh no! Something went wrong.\nCheck the console for details.');
   console.log(error);
@@ -68,7 +71,7 @@ function renderMovies(title,rating, id) {
 
 
 
-}
+} //renderMovies()
 
 //ADDS A MOVIE TO DATABASE ON CLICK
 
@@ -77,15 +80,7 @@ $('#add-movie-btn').on("click", function() {
   addMovie();
 });
 
-$('.edit-movie').on("click", function() {
-  $('#myModal').modal('toggle');
-
+$(".edit-movie").on('click', function(){
+    $('#myModal').modal('toggle');
 });
 
-// $('.edit-movie').click(function() {
-//
-//   console.log('edit button 2 ran');
-//
-//   let modal = renderModal();
-//   $(document).html(modal);
-// });
