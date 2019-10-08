@@ -11,6 +11,28 @@ function getMovies() {
       .then(response => response.json());
 }
 
+getMovies().then((movies) => {
+  let dynamicHTML = "";
+  movies.forEach(({title, rating, id}) => {
+    dynamicHTML += renderMovies(title, rating, id);
+  });
+
+  $(".container").html(dynamicHTML);
+
+  $('.open-modal').on("click", function() {
+    //This refers to the card button which has an id
+    console.log(this);
+    //This will grab the text found in the movie title
+    let modalMovieTitle = $(this).parent().children("h5").text();
+    $('.modal').modal("toggle");
+    $('#edit-movie-title').innerText(modalMovieTitle);
+
+  });
+
+}).catch((error) => {
+  alert('Oh no! Something went wrong.\nCheck the console for details.');
+  console.log(error);
+});
 function addMovie() {
   let movieTitle = $('#new-movie-title').val();
   let movieRating = $('#new-movie-rating').val();
@@ -35,36 +57,23 @@ function addMovie() {
   renderMovies();
 }
 
+function editMovie() {
 
-getMovies().then((movies) => {
-  let dynamicHTML = "";
-  movies.forEach(({title, rating, id}) => {
-    dynamicHTML += renderMovies(title, rating, id);
+}
 
-  });
 
-  $(".container").html(dynamicHTML);
-  $(".edit-movie").on('click', function(){
-    $('#myModal').modal('toggle');
-});
-}).catch((error) => {
-  alert('Oh no! Something went wrong.\nCheck the console for details.');
-  console.log(error);
-});
 
 
 //DYNAMICALLY CREATES HTML BASED ON WHAT IS IN db.json
 
 function renderMovies(title,rating, id) {
-
   //declare empty variable to hold HTML that is being dynamically created
-
   return `
-    <div class="card" style="width: 18rem; data-id=${id}">
+    <div class="card" style="width: 18rem">
       <div class="card-body">
       <h5 class="card-title">${title}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">${rating}</h6>
-      <button class="edit-movie" type="button" class="btn btn-secondary">Edit</button>
+      <h6 class="card-subtitle mb-2 text-muted" id="card-movie-rating">${rating}</h6>
+      <button id="${id}" class="open-modal" type="button" class="btn btn-secondary">Edit</button>
       </div>
     </div>
   `;
@@ -80,7 +89,4 @@ $('#add-movie-btn').on("click", function() {
   addMovie();
 });
 
-$(".edit-movie").on('click', function(){
-    $('#myModal').modal('toggle');
-});
 
