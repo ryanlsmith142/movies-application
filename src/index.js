@@ -19,15 +19,18 @@ getMovies().then((movies) => {
 
   $(".container").html(dynamicHTML);
 
+  let modalMovieTitle;
+  let modalMovieRating;
+  let modalMovieId;
   $('.open-modal').on("click", function() {
     //This refers to the card button which has an id
     console.log(this);
     //This will grab the text found in the movie title
-    let modalMovieTitle = $(this).parent().children("h5").text();
+    modalMovieTitle = $(this).parent().children("h5").text();
     //This will grab the text found in the movie rating
-    let modalMovieRating = $(this).parent().children("h6").text();
+    modalMovieRating = $(this).parent().children("h6").text();
     //This will grab the id that corresponds with the button and the movie in the database
-    let modalMovieId = $(this).attr("id");
+    modalMovieId = parseInt($(this).attr("id"));
 
     console.log(modalMovieId);
 
@@ -37,9 +40,11 @@ getMovies().then((movies) => {
 
     $('#edit-movie-rating').val(modalMovieRating);
 
-    $('#save-changes').
+  });
 
 
+  $('#save-changes').on("click", function() {
+    editMovie(modalMovieTitle, modalMovieRating, modalMovieId);
   });
 
 }).catch((error) => {
@@ -70,28 +75,27 @@ function addMovie() {
   renderMovies();
 }
 
-function editMovie() {
-  let movieTitle = $('#new-movie-title').val();
-  let movieRating = $('#new-movie-rating').val();
-  let newMovie = {
-    title: movieTitle,
-    rating: movieRating,
+function editMovie(modalMovieTitle, modalMovieRating, modalMovieId) {
+  console.log(modalMovieTitle);
+  const editedMovie = {
+    title: modalMovieTitle,
+    rating: modalMovieRating,
+    id: modalMovieId
   };
-  const url = '/api/movies';
+  const url = `/api/movies/${modalMovieId}`;
   const options = {
-    method: 'POST',
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(newMovie),
+    body: JSON.stringify(editedMovie),
   };
   fetch(url, options)
       .then()
       .catch(function() {
-        console.log("Hey we couldn't add a movie or update the movies.")
+        console.log("Hey we couldn't edit that movie")
       });
 
-  renderMovies();
 }
 
 
