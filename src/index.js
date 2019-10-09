@@ -24,8 +24,21 @@ getMovies().then((movies) => {
     console.log(this);
     //This will grab the text found in the movie title
     let modalMovieTitle = $(this).parent().children("h5").text();
+    //This will grab the text found in the movie rating
+    let modalMovieRating = $(this).parent().children("h6").text();
+    //This will grab the id that corresponds with the button and the movie in the database
+    let modalMovieId = $(this).attr("id");
+
+    console.log(modalMovieId);
+
     $('.modal').modal("toggle");
-    $('#edit-movie-title').innerText(modalMovieTitle);
+
+    $('#edit-movie-title').val(modalMovieTitle);
+
+    $('#edit-movie-rating').val(modalMovieRating);
+
+    $('#save-changes').
+
 
   });
 
@@ -58,7 +71,27 @@ function addMovie() {
 }
 
 function editMovie() {
+  let movieTitle = $('#new-movie-title').val();
+  let movieRating = $('#new-movie-rating').val();
+  let newMovie = {
+    title: movieTitle,
+    rating: movieRating,
+  };
+  const url = '/api/movies';
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newMovie),
+  };
+  fetch(url, options)
+      .then()
+      .catch(function() {
+        console.log("Hey we couldn't add a movie or update the movies.")
+      });
 
+  renderMovies();
 }
 
 
