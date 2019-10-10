@@ -9,6 +9,8 @@
 function getMovies() {
   return fetch('/api/movies')
       .then(response => response.json());
+
+
 }
 
 getMovies().then((movies) => {
@@ -43,6 +45,7 @@ getMovies().then((movies) => {
     let editedMovieTitle = $(this).parent().parent().children(".modal-body").children().children("#edit-movie-title").val();
 
     let editedMovieRating = $(this).parent().parent().children(".modal-body").children().children("#edit-movie-rating").val();
+
     editMovie(editedMovieTitle,editedMovieRating,modalMovieId);
   });
 
@@ -50,6 +53,10 @@ getMovies().then((movies) => {
   alert('Oh no! Something went wrong.\nCheck the console for details.');
   console.log(error);
 });
+
+
+
+
 function addMovie() {
   let movieTitle = $('#new-movie-title').val();
   let movieRating = $('#new-movie-rating').val();
@@ -71,7 +78,6 @@ function addMovie() {
           console.log("Hey we couldn't add a movie or update the movies.")
       });
 
-  renderMovies();
 } //addMovie()
 
 function editMovie(editedMovieTitle, editedMovieRating, modalMovieId) {
@@ -89,12 +95,15 @@ function editMovie(editedMovieTitle, editedMovieRating, modalMovieId) {
     body: JSON.stringify(editedMovie),
   };
   fetch(url, options)
-      .then()
+      .then((response) => {
+        return response.json();
+      }).then((editedMovie) => {
+          $(modalMovieId).parent().children("h5").html(editedMovie.title);
+        // $(".container").html(dynamicHTML);
+      })
       .catch(function() {
         console.log("Hey we couldn't edit that movie")
       });
-
-  renderMovies();
 
 } //editMovie()
 
@@ -125,5 +134,4 @@ function renderMovies(title,rating, id) {
 $('#add-movie-btn').on("click", function() {
   addMovie();
 });
-
 

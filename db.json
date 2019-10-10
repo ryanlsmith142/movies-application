@@ -1,12 +1,12 @@
 {
   "movies": [
     {
-      "title": "Harry Potter",
-      "rating": "4",
+      "title": "Old Yeller 2",
+      "rating": "3",
       "id": 1
     },
     {
-      "title": "Harry Potter",
+      "title": "Harry",
       "rating": "1",
       "id": 2
     }
