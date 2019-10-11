@@ -98,8 +98,9 @@ function editMovie(editedMovieTitle, editedMovieRating, modalMovieId) {
       .then((response) => {
         return response.json();
       }).then((editedMovie) => {
-          $(modalMovieId).parent().children("h5").html(editedMovie.title);
-        // $(".container").html(dynamicHTML);
+        console.log('hey I fired');
+
+        console.log($(`#${editedMovie.id}`).parent().children(".card-title").html(editedMovie.title));
       })
       .catch(function() {
         console.log("Hey we couldn't edit that movie")
